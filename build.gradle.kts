@@ -16,6 +16,9 @@ dependencies {
     implementation("io.projectreactor", "reactor-core", properties["version.reactor"].toString())
     testImplementation("io.projectreactor", "reactor-test", properties["version.reactor"].toString())
 
+    implementation("info.picocli", "picocli", properties["version.picocli"].toString())
+    annotationProcessor("info.picocli", "picocli-codegen", properties["version.picocli"].toString())
+
     testImplementation("org.junit.jupiter", "junit-jupiter", properties["version.junit"].toString())
     testImplementation("org.mockito", "mockito-core", properties["version.mockito"].toString())
 }
@@ -27,6 +30,10 @@ configure<JavaPluginExtension> {
 
 configure<JavaApplication> {
     mainClass.set("com.portscanner.Main")
+}
+
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("-Aproject=${project.name}")
 }
 
 tasks.withType<Test> {
