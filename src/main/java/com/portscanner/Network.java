@@ -14,11 +14,9 @@ public final class Network {
             .publishOn(Schedulers.boundedElastic());
     }
 
-    public static Mono<Boolean> isPortBeingUsed(final String ip, final int port) {
-        return Mono.fromCallable(() -> {
-            new Socket(ip, port);
-            return true;
-        })
+    public static Mono<Boolean> isPortAvailable(final String ip, final int port) {
+        return Mono.fromCallable(() -> new Socket(ip, port))
+            .then(Mono.just(true))
             .onErrorReturn(false)
             .publishOn(Schedulers.boundedElastic());
     }
