@@ -2,6 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
     java
+    application
 }
 
 repositories {
@@ -15,6 +16,10 @@ dependencies {
 configure<JavaPluginExtension> {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+}
+
+configure<JavaApplication> {
+    mainClass.set("com.portscanner.Main")
 }
 
 tasks.withType<Test> {
