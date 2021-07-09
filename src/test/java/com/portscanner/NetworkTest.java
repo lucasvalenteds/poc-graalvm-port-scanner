@@ -17,9 +17,11 @@ class NetworkTest {
     private static final int TEST_PORT_AVAILABLE = 4001;
     private static final int TEST_PORT_UNAVAILABLE = 4002;
 
+    private final Network network = new Network.Local();
+
     @Test
     void testFindingLocalhostIpAddress() {
-        StepVerifier.create(Network.discoverLocalIpAddress())
+        StepVerifier.create(network.getIpAddress())
             .assertNext(ip -> assertEquals(TEST_IP, ip))
             .verifyComplete();
     }
@@ -28,7 +30,7 @@ class NetworkTest {
     void testFindingUnavailablePort() throws IOException {
         var socket = new ServerSocket(TEST_PORT_UNAVAILABLE);
 
-        StepVerifier.create(Network.isPortAvailable(TEST_IP, socket.getLocalPort()))
+        StepVerifier.create(network.isPortAvailable(TEST_IP, socket.getLocalPort()))
             .assertNext(Assertions::assertTrue)
             .verifyComplete();
 
@@ -38,11 +40,10 @@ class NetworkTest {
     @Test
     @EnabledIf("com.portscanner.NetworkTest#isTestPortAvailable")
     void testFindingAvailablePort() {
-        StepVerifier.create(Network.isPortAvailable(TEST_IP, TEST_PORT_AVAILABLE))
+        StepVerifier.create(network.isPortAvailable(TEST_IP, TEST_PORT_AVAILABLE))
             .assertNext(Assertions::assertFalse)
             .verifyComplete();
     }
-
 
     @SuppressWarnings("unused")
     private boolean isTestPortAvailable() {
