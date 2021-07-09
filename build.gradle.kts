@@ -18,6 +18,7 @@ dependencies {
     testImplementation("io.projectreactor", "reactor-test", properties["version.reactor"].toString())
 
     testImplementation("org.junit.jupiter", "junit-jupiter", properties["version.junit"].toString())
+    testImplementation("org.mockito", "mockito-core", properties["version.mockito"].toString())
 }
 
 configure<JavaPluginExtension> {
