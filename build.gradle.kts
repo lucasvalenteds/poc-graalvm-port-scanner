@@ -10,8 +10,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.apache.logging.log4j", "log4j-api", properties["version.log4j"].toString())
-    implementation("org.apache.logging.log4j", "log4j-core", properties["version.log4j"].toString())
     implementation("org.slf4j", "slf4j-simple", properties["version.slf4j"].toString())
 
     implementation("io.projectreactor", "reactor-core", properties["version.reactor"].toString())
