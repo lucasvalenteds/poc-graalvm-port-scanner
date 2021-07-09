@@ -1,3 +1,4 @@
+import org.graalvm.buildtools.gradle.tasks.NativeBuildTask
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
@@ -30,6 +31,13 @@ configure<JavaPluginExtension> {
 
 configure<JavaApplication> {
     mainClass.set("com.portscanner.Main")
+}
+
+tasks.withType<NativeBuildTask> {
+    nativeBuild {
+        imageName.set("port-scanner")
+        mainClass.set(application.mainClass)
+    }
 }
 
 tasks.withType<JavaCompile> {
