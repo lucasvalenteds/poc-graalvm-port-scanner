@@ -21,8 +21,8 @@ public abstract class Network {
 
     public Mono<Boolean> isPortAvailable(final String ip, final int port) {
         return Mono.fromCallable(() -> new Socket(ip, port))
-            .then(Mono.just(true))
-            .onErrorReturn(false)
+            .then(Mono.just(false))
+            .onErrorReturn(true)
             .publishOn(Schedulers.boundedElastic());
     }
 }

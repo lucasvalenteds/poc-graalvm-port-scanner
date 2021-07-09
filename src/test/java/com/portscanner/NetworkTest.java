@@ -31,7 +31,7 @@ class NetworkTest {
         var socket = new ServerSocket(TEST_PORT_UNAVAILABLE);
 
         StepVerifier.create(network.isPortAvailable(TEST_IP, socket.getLocalPort()))
-            .assertNext(Assertions::assertTrue)
+            .assertNext(Assertions::assertFalse)
             .verifyComplete();
 
         socket.close();
@@ -41,7 +41,7 @@ class NetworkTest {
     @EnabledIf("com.portscanner.NetworkTest#isTestPortAvailable")
     void testFindingAvailablePort() {
         StepVerifier.create(network.isPortAvailable(TEST_IP, TEST_PORT_AVAILABLE))
-            .assertNext(Assertions::assertFalse)
+            .assertNext(Assertions::assertTrue)
             .verifyComplete();
     }
 
