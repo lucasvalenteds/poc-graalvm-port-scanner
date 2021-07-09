@@ -9,16 +9,21 @@ import static picocli.CommandLine.Command;
 import static picocli.CommandLine.Option;
 
 @Command(name = "port-scanner",
-    description = "Showing TCP ports bound to a server or service running locally",
+    description = "Showing TCP ports bound to a server or service running locally.",
     version = "0.1.0",
+    synopsisHeading = "%n@|bold USAGE|@%n%n",
+    descriptionHeading = "%n@|bold DESCRIPTION |@%n%n",
+    optionListHeading = "%n@|bold OPTIONS |@%n%n",
+    commandListHeading = "%n@|bold COMMANDS |@%n%n",
+    sortOptions = false,
     showDefaultValues = true,
     mixinStandardHelpOptions = true)
 public final class Main implements Callable<Integer> {
 
-    @Option(names = {"-s", "--start"}, description = "Smaller port to search", defaultValue = "0")
+    @Option(names = "--range-start", description = "Smaller port to search.", defaultValue = "0", order = -6)
     int rangeStart;
 
-    @Option(names = {"-e", "--end"}, description = "Greater port to search", defaultValue = "65355")
+    @Option(names = "--range-end", description = "Greater port to search.", defaultValue = "65355", order = -5)
     int rangeEnd;
 
     private static final int EXIT_CODE_SUCCESS = 0;
