@@ -3,6 +3,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 plugins {
     java
     application
+    id("org.graalvm.buildtools.native") version "0.9.1"
 }
 
 repositories {
