@@ -68,6 +68,7 @@ public final class Main implements Callable<Integer> {
         return Mono.from(portScannerResult)
             .then(Mono.just(EXIT_CODE_SUCCESS))
             .onErrorReturn(EXIT_CODE_ERROR)
+            .doOnTerminate(this::clearOutputBuffer)
             .block();
     }
 
@@ -78,7 +79,8 @@ public final class Main implements Callable<Integer> {
 
     private void printPortRange() {
         System.out.println(
-            "Scanning ports from "
+            Ansi.Style.reset.on()
+                + "Scanning ports from "
                 + Ansi.Style.bold.on() + rangeStart
                 + Ansi.Style.reset.on() + " to "
                 + Ansi.Style.bold.on() + rangeEnd
@@ -95,10 +97,14 @@ public final class Main implements Callable<Integer> {
     }
 
     private void printAvailablePort(int port) {
-        System.out.println("\t* " + Ansi.Style.fg_green.on() + port);
+        System.out.println(Ansi.Style.reset.on() + "\t* " + Ansi.Style.fg_green.on() + port);
     }
 
     private void printUnavailablePort(int port) {
-        System.out.println("\t* " + Ansi.Style.fg_red.on() + port);
+        System.out.println(Ansi.Style.reset.on() + "\t* " + Ansi.Style.fg_red.on() + port);
+    }
+
+    private void clearOutputBuffer() {
+        System.out.println(Ansi.Style.reset.on());
     }
 }
