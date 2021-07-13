@@ -21,6 +21,7 @@ dependencies {
     annotationProcessor("info.picocli", "picocli-codegen", properties["version.picocli"].toString())
 
     testImplementation("org.junit.jupiter", "junit-jupiter", properties["version.junit"].toString())
+    testImplementation("org.assertj", "assertj-core", properties["version.assertj"].toString())
     testImplementation("org.mockito", "mockito-core", properties["version.mockito"].toString())
 }
 
